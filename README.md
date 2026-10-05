@@ -396,6 +396,7 @@ The validated action can either be:
 # System Architecture
 
 ## System Architecture
+## System Architecture
 
 ```mermaid
 flowchart TB
@@ -419,57 +420,43 @@ flowchart TB
     E -->|Approved trade plan| F
     F -->|Simulation mode| G
     F -->|Live trading enabled| H
-    G -->|Results & positions| B
-    H -->|Order status & fills| B
+    G -->|Results and positions| B
+    H -->|Order status and fills| B
     B -->|Status| A
-
-                         ┌──────────────────────────┐
-                         │     AegisTrade AI        │
-                         │      React Frontend      │
-                         │          Netlify         │
-                         └────────────┬─────────────┘
-                                      │
-                                      │ HTTP API
-                                      ▼
-                         ┌──────────────────────────┐
-                         │      FastAPI Backend     │
-                         │          Render          │
-                         └────────────┬─────────────┘
-                                      │
-              ┌───────────────────────┼───────────────────────┐
-              │                       │                       │
-              ▼                       ▼                       ▼
-      ┌────────────────┐      ┌────────────────┐      ┌────────────────┐
-      │  WEEX Market   │      │  AI Signal     │      │ Risk Management│
-      │     Data       │      │     Engine     │      │     Layer       │
-      │                │      │                │      │                │
-      │ • Ticker       │      │ • EMA          │      │ • Position     │
-      │ • Candles      │      │ • RSI          │      │   sizing        │
-      │ • Bid / Ask    │      │ • MACD         │      │ • SL / TP       │
-      │ • Volume       │      │ • Momentum     │      │ • Limits        │
-      └───────┬────────┘      │ • Volume       │      │ • Validation    │
-              │               └───────┬────────┘      └───────┬────────┘
-              │                       │                       │
-              └───────────────────────┼───────────────────────┘
-                                      │
-                                      ▼
-                         ┌──────────────────────────┐
-                         │   Execution Safety Layer │
-                         │                          │
-                         │ • Fresh price check     │
-                         │ • Notional limit        │
-                         │ • Duplicate protection  │
-                         │ • Live trading switch   │
-                         └────────────┬─────────────┘
-                                      │
-                           ┌──────────┴──────────┐
-                           │                     │
-                           ▼                     ▼
-                  ┌────────────────┐    ┌────────────────┐
-                  │ Paper Trading  │    │ WEEX Futures   │
-                  │     Engine     │    │   Execution    │
-                  └────────────────┘    └────────────────┘
 ```
+
+AegisTrade AI uses a layered architecture that separates market data, AI signal generation, risk management, execution safety, and trading execution.
+
+### Architecture Components
+
+#### 1. React Frontend
+
+The React frontend provides the user interface for market monitoring, AI signals, risk controls, paper trading, and execution status.
+
+#### 2. FastAPI Backend
+
+The FastAPI backend provides the application API and coordinates communication between the frontend, market data, AI strategy, risk management, and execution services.
+
+#### 3. WEEX Market Data
+
+The system retrieves ticker, candle, bid/ask, and volume information from WEEX to support real-time market analysis.
+
+#### 4. AI Signal Engine
+
+The signal engine evaluates indicators including EMA, RSI, MACD, momentum, and volume to generate LONG, SHORT, or HOLD decisions.
+
+#### 5. Risk Management Layer
+
+The risk layer handles position sizing, stop-loss/take-profit calculations, risk limits, balance validation, and trade validation.
+
+#### 6. Execution Safety Layer
+
+Before execution, the system performs fresh-price validation, notional-limit checks, duplicate-position protection, and live-trading safety checks.
+
+#### 7. Execution Destinations
+
+Validated trades can be processed by the paper trading engine or, when explicitly enabled, the WEEX futures execution layer.
+
 
 ### Architecture Principle
 
