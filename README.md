@@ -395,57 +395,90 @@ The validated action can either be:
 
 # System Architecture
 
-AegisTrade AI uses a separated frontend-backend architecture.
-     flowchart TB
-    %% AegisTrade AI — System Architecture
+## System Architecture
 
-    subgraph PRESENTATION["Presentation Layer"]
-        FE["AegisTrade AI<br/>React Frontend<br/><small>Hosted on Netlify</small>"]
-    end
+```mermaid
+flowchart TB
+    A["AegisTrade AI<br/>React Frontend<br/>Hosted on Netlify"]
+    B["FastAPI Backend<br/>Hosted on Render"]
+    C["WEEX Market Data"]
+    D["AI Signal Engine"]
+    E["Risk Management Layer"]
+    F["Execution Safety Layer"]
+    G["Paper Trading Engine"]
+    H["WEEX Futures Execution"]
 
-    subgraph APPLICATION["Application Layer"]
-        API["FastAPI Backend<br/><small>Hosted on Render</small>"]
-    end
+    A -->|HTTPS / REST API| B
+    B --> C
+    B --> D
+    B --> E
+    C -->|Market data| D
+    D -->|Trade signal| E
+    C -->|Current price| F
+    D -->|Validated signal| F
+    E -->|Approved trade plan| F
+    F -->|Simulation mode| G
+    F -->|Live trading enabled| H
+    G -->|Results & positions| B
+    H -->|Order status & fills| B
+    B -->|Status| A
+```
 
-    FE -->|"HTTPS / REST API"| API
+### 2. VERY IMPORTANT
 
-    subgraph CORE["Core Trading Intelligence"]
-        direction LR
+The first line must be:
 
-        MARKET["WEEX Market Data<br/><br/>Ticker · Candles<br/>Bid / Ask · Volume"]
-        SIGNAL["AI Signal Engine<br/><br/>EMA · RSI · MACD<br/>Momentum · Volume"]
-        RISK["Risk Management Layer<br/><br/>Position sizing · SL / TP<br/>Limits · Validation"]
+```text
+```mermaid
+```
 
-        MARKET -->|"Live market feed"| SIGNAL
-        SIGNAL -->|"Trade signal"| RISK
-    end
+and the **last line must be only**:
 
-    API -->|"Market requests"| MARKET
-    API -->|"Strategy configuration"| SIGNAL
-    API -->|"Risk parameters"| RISK
+```text
+```
+```
 
-    MARKET -->|"Current price context"| SAFETY
-    SIGNAL -->|"Validated signal"| SAFETY
-    RISK -->|"Approved trade plan"| SAFETY
+There must be **three backticks before `mermaid` and three backticks after the diagram**.
 
-    subgraph CONTROL["Execution Control"]
-        SAFETY["Execution Safety Layer<br/><br/>Fresh price check · Notional limit<br/>Duplicate protection · Live trading switch"]
-    end
+Do **not** put four backticks into GitHub.
 
-    SAFETY -->|"Simulation mode"| PAPER["Paper Trading Engine"]
-    SAFETY -->|"Live mode — explicit approval"| LIVE["WEEX Futures Execution"]
+---
 
-    subgraph EXECUTION["Execution Destinations"]
-        direction LR
-        PAPER
-        LIVE
-    end
+### 3. Commit it
 
-    PAPER -->|"Results & positions"| API
-    LIVE -->|"Order status & fills"| API
-    API -->|"Signals, risk & execution status"| FE
+Use:
 
+**Commit message:**
 
+```text
+Fix Mermaid architecture diagram rendering
+```
+
+Then **Commit changes**.
+
+---
+
+### 4. Check the README
+
+When you open the rendered README, you should **NOT** see:
+
+```text
+flowchart TB
+A["AegisTrade AI..."]
+B["FastAPI Backend..."]
+```
+
+Instead, GitHub should display the **boxes and arrows visually**.
+
+---
+
+### If it STILL shows code
+
+Then don't keep changing things randomly.
+
+Send me a **screenshot of the System Architecture section as it appears on GitHub**, and I'll tell you exactly what is wrong.
+
+Also, if your README editor is showing the backticks differently, send me a screenshot of the **edit mode** and I'll guide you click-by-click.
 
                          ┌──────────────────────────┐
                          │     AegisTrade AI        │
