@@ -4,254 +4,400 @@
 
 > **Trade smarter. Trade with Aegis.**
 
-AegisTrade AI is an AI-powered futures trading intelligence system designed for the **WEEX AI Wars II: Human vs AI** competition.
+AegisTrade AI is an AI-powered futures trading intelligence platform developed for **WEEX AI Wars II: Human vs AI**.
 
-The system combines real-time WEEX futures market data, multi-indicator technical analysis, AI-driven trading signals, risk management, paper trading, and protected WEEX execution into a single trading intelligence platform.
+The platform combines real-time WEEX futures market data, multi-indicator technical analysis, AI-assisted trading signals, risk management, paper trading, and protected WEEX execution into a unified trading workflow.
 
-AegisTrade is designed around one core principle:
+The core design principle is:
 
-> **An AI signal should not directly become an exchange order. The signal should first pass through risk controls and execution safety checks.**
-
----
-
-# 📑 Table of Contents
-
-- [Overview](#-overview)
-- [Problem](#-problem)
-- [Solution](#-solution)
-- [Key Features](#-key-features)
-- [How AegisTrade AI Works](#-how-aegistrade-ai-works)
-- [System Architecture](#-system-architecture)
-- [Architecture Components](#-architecture-components)
-- [AI Signal Strategy](#-ai-signal-strategy)
-- [Signal Decision Logic](#-signal-decision-logic)
-- [Why HOLD Matters](#-why-hold-matters)
-- [Risk Management](#-risk-management)
-- [Execution Safety](#-execution-safety)
-- [WEEX Integration](#-weex-integration)
-- [Paper Trading](#-paper-trading)
-- [Security](#-security)
-- [Technology Stack](#-technology-stack)
-- [Project Structure](#-project-structure)
-- [Local Setup](#-local-setup)
-- [Environment Variables](#-environment-variables)
-- [Running the Application](#-running-the-application)
-- [Deployment](#-deployment)
-- [Demo Flow](#-demo-flow)
-- [Supported Markets](#-supported-markets)
-- [Future Improvements](#-future-improvements)
-- [Competition](#-competition)
-- [Disclaimer](#-disclaimer)
+> **An AI signal should never become an exchange order directly. It must first pass through risk validation and execution-safety controls.**
 
 ---
 
-# 🔎 Overview
+# Table of Contents
+
+* [Overview](#overview)
+* [Problem](#problem)
+* [Solution](#solution)
+* [Key Features](#key-features)
+* [How AegisTrade AI Works](#how-aegistrade-ai-works)
+* [System Architecture](#system-architecture)
+* [Architecture Components](#architecture-components)
+* [AI Signal Strategy](#ai-signal-strategy)
+* [Signal Decision Logic](#signal-decision-logic)
+* [Why HOLD Matters](#why-hold-matters)
+* [Risk Management](#risk-management)
+* [Execution Safety](#execution-safety)
+* [WEEX Integration](#weex-integration)
+* [Paper Trading](#paper-trading)
+* [Security](#security)
+* [Technology Stack](#technology-stack)
+* [Project Structure](#project-structure)
+* [Local Setup](#local-setup)
+* [Environment Variables](#environment-variables)
+* [Running the Application](#running-the-application)
+* [Deployment](#deployment)
+* [Demo Flow](#demo-flow)
+* [Supported Markets](#supported-markets)
+* [Testing Philosophy](#testing-philosophy)
+* [Future Improvements](#future-improvements)
+* [Competition](#competition)
+* [Disclaimer](#disclaimer)
+
+---
+
+# Overview
 
 AegisTrade AI provides an integrated environment for monitoring futures markets, analyzing market conditions, generating AI-assisted trading signals, applying risk controls, and safely demonstrating trade execution.
 
-The platform is built to reduce the gap between:
+The platform brings the following workflow together:
 
 **Market Data → Analysis → Decision → Risk Validation → Execution**
 
-Instead of requiring the user to manually inspect multiple indicators and calculate trading parameters, AegisTrade brings these processes together in one dashboard.
+Instead of requiring a trader to manually inspect multiple indicators, calculate position sizing, evaluate risk, and then execute a trade, AegisTrade organizes these processes into a structured trading intelligence pipeline.
 
-The application provides:
+### Core Capabilities
 
-- Real-time market information
-- Technical indicators
-- AI-generated trading signals
-- Confidence scoring
-- Risk calculations
-- Paper trading
-- Trade history
-- WEEX execution protection
-- Live trading safety controls
+* Real-time WEEX futures market data
+* Technical indicator analysis
+* AI-assisted LONG / SHORT / HOLD signals
+* Signal confidence scoring
+* Market-condition explanations
+* Risk calculations
+* Position sizing
+* Stop-loss and take-profit validation
+* Paper trading
+* Simulated P&L tracking
+* Trade history
+* WEEX execution protection
+* Backend-controlled live trading switch
 
 ---
 
-# ❗ Problem
+# Problem
 
-Futures trading can require traders to make several decisions very quickly.
+Futures trading often requires several decisions to be made within a short period of time.
 
 A trader may need to:
 
 1. Monitor price movement
-2. Analyze market trend
-3. Check momentum
+2. Identify the current trend
+3. Analyze momentum
 4. Evaluate RSI
 5. Compare moving averages
 6. Inspect MACD
-7. Consider volume
+7. Analyze volume
 8. Calculate position size
-9. Set stop-loss and take-profit
-10. Decide whether the trade is actually worth taking
-11. Execute the trade
+9. Determine stop-loss and take-profit levels
+10. Evaluate whether the trade is worth taking
+11. Execute the order
 
-Performing these tasks manually can result in:
+Performing these tasks manually can lead to:
 
-- Delayed decisions
-- Inconsistent analysis
-- Emotional trading
-- Poor risk control
-- Overtrading
-- Incorrect position sizing
+* Delayed decisions
+* Inconsistent analysis
+* Emotional trading
+* Poor risk control
+* Overtrading
+* Incorrect position sizing
+* Execution based on outdated information
 
-AegisTrade AI addresses this workflow by combining market intelligence, signal generation, and risk validation into a single system.
+AegisTrade AI addresses this problem by bringing market intelligence, signal generation, risk validation, and execution protection into one structured system.
 
 ---
 
-# 💡 Solution
+# Solution
 
-AegisTrade AI continuously evaluates market information and produces a structured trading decision:
+AegisTrade AI continuously processes market information and produces a structured trading decision.
 
-The decision is based on multiple technical inputs rather than a single indicator.
+Multiple technical indicators contribute to the decision rather than relying on a single indicator.
 
-The resulting signal is then passed through the risk-management and execution-safety layers.
+The resulting signal is then passed through risk-management and execution-safety layers before a trading action can occur.
 
-The complete workflow is:
+### Core Trading Pipeline
 
-WEEX Market Data
-        ↓
-Market Intelligence
-        ↓
-Technical Analysis
-        ↓
-AI Signal Engine
-        ↓
-Risk Manager
-        ↓
-Execution Safety
-        ↓
-Paper Trading / Protected WEEX Execution
-This architecture makes risk management part of the trading workflow rather than an afterthought.
-✨ Key Features
-1. Real-Time WEEX Market Intelligence
+```text
+┌──────────────────────────┐
+│     WEEX Market Data     │
+│                          │
+│ • Price                 │
+│ • Bid / Ask             │
+│ • Volume                │
+│ • Candles               │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Market Intelligence    │
+│                          │
+│ • Market conditions      │
+│ • Price analysis         │
+│ • Market statistics      │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Technical Analysis     │
+│                          │
+│ • EMA 9 / EMA 21         │
+│ • RSI 14                 │
+│ • MACD                   │
+│ • Momentum               │
+│ • Volume Ratio           │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│    AI Signal Engine      │
+│                          │
+│ • LONG                   │
+│ • SHORT                  │
+│ • HOLD                   │
+│ • Confidence             │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│      Risk Manager        │
+│                          │
+│ • Position sizing        │
+│ • Balance validation     │
+│ • Stop-loss / Take-profit│
+│ • Exposure limits        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Execution Safety       │
+│                          │
+│ • Fresh price check      │
+│ • Notional limit         │
+│ • Duplicate protection   │
+│ • Live trading switch    │
+└────────────┬─────────────┘
+             │
+      ┌──────┴──────┐
+      │             │
+      ▼             ▼
+┌──────────────┐ ┌──────────────┐
+│    Paper     │ │     WEEX     │
+│   Trading    │ │   Futures    │
+│    Engine    │ │  Execution   │
+└──────────────┘ └──────────────┘
+```
+
+This architecture makes risk management part of the trading workflow rather than treating it as an afterthought.
+
+---
+
+# Key Features
+
+## 1. Real-Time WEEX Market Intelligence
 
 AegisTrade connects to WEEX futures market endpoints to retrieve current market information.
 
-The dashboard can display information including:
+The platform can process information such as:
 
-Current price
-Best bid
-Best ask
-24-hour high
-24-hour low
-24-hour volume
-Price change
-Candlestick data
-Market symbols
-Trading intervals
-2. Multi-Indicator AI Signal Engine
+* Current price
+* Best bid
+* Best ask
+* 24-hour high
+* 24-hour low
+* 24-hour volume
+* Price change
+* Candlestick data
+* Trading symbols
+* Chart intervals
 
-The signal engine evaluates several technical inputs:
+Market information is retrieved by the backend before being provided to the frontend.
 
-EMA 9
-EMA 21
-RSI 14
-MACD
-Momentum
-Volume ratio
+---
 
-The indicators are combined into a directional scoring system.
+## 2. Multi-Indicator AI Signal Engine
 
-The result is classified as:
-LONG
-SHORT
-HOLD
-The dashboard also displays a confidence score and explanation of the current market intelligence.
+The signal engine evaluates multiple technical inputs:
 
-3. Risk Management
+* EMA 9
+* EMA 21
+* RSI 14
+* MACD
+* Momentum
+* Volume Ratio
 
-AegisTrade places risk validation between the AI decision and execution.
+These indicators are combined into a directional scoring system.
 
-Risk controls include:
+The resulting market classification is:
 
-Position sizing
-Balance validation
-Stop-loss
-Take-profit
-Maximum order notional
-Duplicate position protection
-Fresh market-price validation
-Live trading safety controls
-4. Paper Trading
+| Signal    | Meaning                                            |
+| --------- | -------------------------------------------------- |
+| **LONG**  | Bullish conditions provide sufficient confirmation |
+| **SHORT** | Bearish conditions provide sufficient confirmation |
+| **HOLD**  | Market evidence is insufficient or conflicting     |
 
-AegisTrade provides a simulated trading environment for safe testing and demonstration.
+The dashboard also provides a confidence score and an explanation of the current market intelligence.
+
+---
+
+## 3. Risk Management
+
+Risk management is positioned between signal generation and execution.
+
+The system includes controls for:
+
+* Balance validation
+* Position sizing
+* Stop-loss
+* Take-profit
+* Maximum order notional
+* Duplicate-position protection
+* Fresh market-price validation
+* Live trading protection
+
+This prevents a trading signal from automatically bypassing the application's safety controls.
+
+---
+
+## 4. Paper Trading
+
+AegisTrade includes a simulated trading environment for development, testing, and demonstration.
 
 The paper trading engine tracks:
 
-Simulated balance
-Open positions
-Entry price
-Exit price
-Profit and loss
-Trade history
+* Simulated balance
+* Open positions
+* Entry price
+* Exit price
+* Position direction
+* Profit and loss
+* Trade history
 
 The default simulated starting balance is:
 
-10,000 USDT
+**10,000 USDT**
 
 Paper trading allows the complete trading workflow to be demonstrated without sending real orders to the exchange.
-5. Protected WEEX Execution
 
-AegisTrade contains a backend WEEX execution layer with authentication and safety controls.
+---
 
-Live trading is controlled by a backend environment variable:
+## 5. Protected WEEX Execution
 
+AegisTrade contains a backend WEEX execution layer responsible for authenticated trading operations.
+
+Live trading is controlled through a backend environment variable:
+
+```env
 WEEX_LIVE_TRADING=false
+```
 
-When live trading is disabled, the system can validate an order without sending it as a real exchange order.
+When live trading is disabled, an order can be validated by the application without being sent as a real exchange order.
 
-This provides an additional protection layer during development and competition demonstration.
+This provides an additional safety barrier during development and competition demonstrations.
 
-🔄 How AegisTrade AI Works
+---
 
-The complete system follows this workflow:
-             ┌───────────────────────┐
-             │      WEEX Market      │
-             │        Data           │
-             └───────────┬───────────┘
-                         │
-                         ▼
-             ┌───────────────────────┐
-             │  Market Intelligence  │
-             └───────────┬───────────┘
-                         │
-                         ▼
-             ┌───────────────────────┐
-             │   Technical Analysis  │
-             │                       │
-             │ EMA / RSI / MACD      │
-             │ Momentum / Volume     │
-             └───────────┬───────────┘
-                         │
-                         ▼
-             ┌───────────────────────┐
-             │    AI Signal Engine   │
-             │                       │
-             │ LONG / SHORT / HOLD   │
-             └───────────┬───────────┘
-                         │
-                         ▼
-             ┌───────────────────────┐
-             │     Risk Manager      │
-             └───────────┬───────────┘
-                         │
-                         ▼
-             ┌───────────────────────┐
-             │   Execution Safety    │
-             └───────────┬───────────┘
-                         │
-                  ┌──────┴──────┐
-                  │             │
-                  ▼             ▼
-          ┌──────────────┐ ┌──────────────┐
-          │ Paper Trading│ │ WEEX Futures │
-          │    Engine    │ │  Execution   │
-          └──────────────┘ └──────────────┘
-          🏗️ System Architecture
+# How AegisTrade AI Works
 
-AegisTrade AI uses a frontend-backend architecture.
+The complete system follows a structured sequence from market data to trading action.
+
+```text
+┌──────────────────────────┐
+│      WEEX Futures        │
+│       Market Data        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Market Intelligence    │
+│                          │
+│ • Price                  │
+│ • Bid / Ask              │
+│ • Volume                 │
+│ • Candles                │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Technical Indicators   │
+│                          │
+│ • EMA 9                  │
+│ • EMA 21                 │
+│ • RSI 14                 │
+│ • MACD                   │
+│ • Momentum               │
+│ • Volume Ratio           │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│    AI Signal Engine      │
+│                          │
+│   LONG / SHORT / HOLD    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│      Risk Manager        │
+│                          │
+│  Validate proposed trade │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Execution Safety       │
+│                          │
+│  Validate before action  │
+└────────────┬─────────────┘
+             │
+       ┌─────┴─────┐
+       │           │
+       ▼           ▼
+┌──────────────┐ ┌──────────────┐
+│    Paper     │ │     WEEX     │
+│   Trading    │ │   Futures    │
+│    Engine    │ │  Execution   │
+└──────────────┘ └──────────────┘
+```
+
+### Workflow Explanation
+
+**Step 1 — Market Data**
+
+The backend retrieves market information from WEEX.
+
+**Step 2 — Market Intelligence**
+
+The system processes current price, bid/ask, volume, candles, and other market information.
+
+**Step 3 — Technical Analysis**
+
+Technical indicators are calculated from the available market data.
+
+**Step 4 — AI Signal**
+
+The indicator results are combined to produce a LONG, SHORT, or HOLD classification.
+
+**Step 5 — Risk Validation**
+
+The proposed trade is checked against the configured risk requirements.
+
+**Step 6 — Execution Safety**
+
+Additional safety checks are performed before a trading action.
+
+**Step 7 — Trading Action**
+
+The validated action can either be:
+
+* Executed in the paper trading engine, or
+* Passed to the protected WEEX execution layer when live trading is explicitly enabled.
+
+---
+
+# System Architecture
+
+AegisTrade AI uses a separated frontend-backend architecture.
+
+```text
                          ┌──────────────────────────┐
                          │     AegisTrade AI        │
                          │      React Frontend      │
@@ -298,344 +444,601 @@ AegisTrade AI uses a frontend-backend architecture.
                   │ Paper Trading  │    │ WEEX Futures   │
                   │     Engine     │    │   Execution    │
                   └────────────────┘    └────────────────┘
-                🧩 Architecture Components
-Frontend
+```
+
+### Architecture Principle
+
+The frontend is responsible for presentation and user interaction.
+
+The backend handles:
+
+* Market-data communication
+* Trading logic
+* Risk validation
+* Paper trading
+* WEEX authentication
+* Execution protection
+* Security-sensitive operations
+
+Exchange credentials remain on the backend.
+
+---
+
+# Architecture Components
+
+## Frontend
 
 The frontend is built using React.
 
-It provides the user interface for:
+It provides the main user interface for:
 
-Market monitoring
-Technical analysis
-AI signals
-Risk information
-Paper trading
-WEEX execution status
-Trade history
+* Market monitoring
+* Technical analysis
+* AI signals
+* Confidence information
+* Risk information
+* Paper trading
+* WEEX execution status
+* Trade history
+* Interactive charts
 
 The production frontend is hosted on Netlify.
 
-Backend
+---
 
-The backend is built with FastAPI and Python.
+## Backend
+
+The backend is built using Python and FastAPI.
 
 It handles:
 
-Market-data requests
-Trading APIs
-Risk calculations
-Paper trading
-WEEX authentication
-WEEX execution
-Backend configuration
-Security-sensitive operations
+* API endpoints
+* Market-data requests
+* Trading operations
+* Risk calculations
+* Paper trading
+* WEEX authentication
+* WEEX execution
+* Backend configuration
+* Security-sensitive operations
 
 The production backend is hosted on Render.
 
-WEEX Market Service
+---
+
+## WEEX Market Service
 
 The market service communicates with WEEX futures market endpoints.
 
 It retrieves and validates:
 
-Ticker information
-Bid / ask information
-24-hour market statistics
-Candlestick data
+* Ticker information
+* Bid / ask information
+* 24-hour market statistics
+* Candlestick data
 
-The service validates symbols and returned market values before passing them into the application.
+The service also validates supported symbols and market values before passing them into the application.
 
-AI Signal Engine
+---
 
-The frontend signal engine combines multiple technical indicators to create a structured market decision.
+## AI Signal Engine
 
-The engine evaluates:
+The signal engine combines multiple technical indicators into a structured market decision.
 
-EMA 9
-EMA 21
-RSI 14
-MACD
-Momentum
-Volume Ratio
+The current indicator set includes:
 
-ThRisk Manager
+* EMA 9
+* EMA 21
+* RSI 14
+* MACD
+* Momentum
+* Volume Ratio
+
+The combined indicator results contribute to the directional score.
+
+---
+
+## Risk Manager
 
 The risk layer determines whether a proposed trade satisfies the configured risk requirements.
 
-It considers:
+It considers factors such as:
 
-Entry price
-Balance
-Position size
-Risk parameters
-Stop-loss
-Take-profit
-Maximum exposure
-Execution Safety Layer
+* Entry price
+* Available balance
+* Position size
+* Risk parameters
+* Stop-loss
+* Take-profit
+* Maximum exposure
+* Trading constraints
 
-The execution safety layer is designed to prevent unsafe trade execution.
+---
 
-It provides:
+## Execution Safety Layer
 
-Fresh price validation
-Maximum notional protection
-Duplicate-position protection
-Live trading switch
-Order validation
-Paper Trading Engine
+The execution safety layer provides additional protection before a trade reaches an exchange.
 
-The paper trading service provides a simulated trading environment.
+It includes:
 
-It tracks positions and P&L without requiring real exchange execution.
+* Fresh price validation
+* Maximum order-notional protection
+* Duplicate-position protection
+* Live trading switch
+* Order validation
 
-🤖 AI Signal Strategy
+This layer is deliberately separated from the AI signal engine.
 
-AegisTrade does not rely on a single indicator.
+---
 
-Instead, several technical indicators contribute to the overall market decision.
+## Paper Trading Engine
 
-EMA 9
+The paper trading engine provides a simulated trading environment.
+
+It tracks:
+
+* Simulated balance
+* Open positions
+* Entry prices
+* Exit prices
+* P&L
+* Trade history
+
+No real exchange funds are required for paper trading.
+
+---
+
+# AI Signal Strategy
+
+AegisTrade does not rely on a single technical indicator.
+
+Instead, multiple indicators contribute to the overall market assessment.
+
+## EMA 9
 
 EMA 9 represents a shorter-term trend measurement.
 
 It helps identify recent price direction.
 
-EMA 21
+---
 
-EMA 21 provides a longer comparison period.
+## EMA 21
 
-Comparing EMA 9 with EMA 21 helps identify directional trend conditions.
+EMA 21 represents a longer comparison period.
 
-RSI 14
+Comparing EMA 9 and EMA 21 helps identify directional trend conditions.
+
+---
+
+## RSI 14
 
 RSI is used to evaluate momentum and relative bullish or bearish market strength.
 
-MACD
+---
+
+## MACD
 
 MACD contributes information about momentum and trend direction.
 
-Momentum
+---
+
+## Momentum
 
 Recent price movement is used as an additional directional input.
 
-Volume Ratio
+---
 
-Volume behavior provides additional confirmation of market activity.
+## Volume Ratio
 
-📊 Signal Decision Logic
+Volume behavior provides additional information about market activity and can help confirm or weaken a directional signal.
+
+---
+
+# Signal Decision Logic
 
 The current signal engine uses a combined scoring approach.
 
-The main decision thresholds are:
+The primary classification thresholds are:
 
-Score >= 6
-    ↓
-LONG
-Score <= -6
-    ↓
-SHORT
-Otherwise
-    ↓
-HOLD
+```text
+              ┌─────────────────┐
+              │  Combined Score │
+              └────────┬────────┘
+                       │
+             ┌─────────┼─────────┐
+             │         │         │
+             ▼         ▼         ▼
+       Score >= 6  -5 to +5  Score <= -6
+             │         │         │
+             ▼         ▼         ▼
+          ┌──────┐  ┌──────┐  ┌──────┐
+          │ LONG │  │ HOLD │  │SHORT │
+          └──────┘  └──────┘  └──────┘
+```
+
+### Signal Interpretation
+
+|      Score | Classification |
+| ---------: | -------------- |
+|     `>= 6` | LONG           |
+| `-5 to +5` | HOLD           |
+|    `<= -6` | SHORT          |
 
 The system also calculates a confidence value based on the strength of the combined signal.
 
-The confidence value should be interpreted as the model's confidence in its current classification, not as a guaranteed probability of profit.
+The confidence value should be interpreted as the model's confidence in its current classification, **not as a guaranteed probability of profit**.
 
-⏸️ Why HOLD Matters
+---
+
+# Why HOLD Matters
 
 AegisTrade does not force a trade when market evidence is mixed.
 
-If the technical signals do not provide enough directional confirmation, the system returns:
+If the technical signals do not provide sufficient directional confirmation, the system returns:
 
-HOLD
+**HOLD**
 
 This is intentional.
 
 For example, a market may show:
 
-Neutral RSI
-Nearly equal short- and long-term EMAs
-Weak MACD momentum
-Conflicting directional signals
+* Neutral RSI
+* Nearly equal short- and long-term EMAs
+* Weak MACD momentum
+* Conflicting directional signals
 
 Instead of artificially choosing LONG or SHORT, AegisTrade can wait for stronger confirmation.
 
-This creates a more risk-aware trading workflow.
+This creates a more risk-aware trading workflow and helps reduce unnecessary trades.
 
-🛡️ Risk Management
+---
+
+# Risk Management
 
 Risk management is one of the core architectural principles of AegisTrade AI.
 
 The system does not treat the AI signal as an automatic order instruction.
 
-Instead:
+Instead, the workflow is:
 
-AI Signal
-    ↓
-Risk Validation
-    ↓
-Execution Safety
-    ↓
-Trading Action
-Fresh Price Validation
+```text
+┌──────────────────────────┐
+│       AI Signal          │
+│   LONG / SHORT / HOLD    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Fresh Market Price     │
+│      Validation          │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│    Risk Calculation      │
+│                          │
+│ • Position size          │
+│ • Exposure               │
+│ • SL / TP                │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     Risk Validation      │
+│                          │
+│   Trade allowed?          │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Execution Safety       │
+│                          │
+│ • Notional limit         │
+│ • Duplicate protection   │
+│ • Live trading switch    │
+└────────────┬─────────────┘
+             │
+       ┌─────┴─────┐
+       │           │
+       ▼           ▼
+┌──────────────┐ ┌──────────────┐
+│    Paper     │ │     WEEX     │
+│   Trading    │ │   Execution  │
+└──────────────┘ └──────────────┘
+```
 
-Before important trading actions, the system requests fresh ticker information.
+## Fresh Price Validation
 
-This helps reduce the risk of making a decision using an outdated displayed price.
+Before important trading actions, the system requests fresh market information.
 
-Position Sizing
+This reduces the risk of making an execution decision using an outdated displayed price.
 
-The system calculates a position size based on the configured risk parameters and available balance.
+---
 
-This helps prevent uncontrolled position exposure result is converted into a directional score and signal.
+## Position Sizing
 
-Stop-Loss and Take-Profit
+The system calculates a proposed position size using configured risk parameters and available balance.
+
+This helps prevent uncontrolled position exposure.
+
+---
+
+## Stop-Loss and Take-Profit
 
 The risk layer validates protective trading levels before a position is opened.
 
-Balance Validation
+These controls are intended to structure the risk associated with a proposed trade.
 
-The paper trading system checks the available simulated balance before opening a position.
+---
 
-Duplicate Position Protection
+## Balance Validation
+
+The paper trading system validates the available simulated balance before opening a position.
+
+---
+
+## Duplicate Position Protection
 
 The paper trading engine prevents multiple open positions for the same symbol.
 
-Maximum Order Notional
+This helps prevent accidental repeated exposure.
 
-The WEEX execution layer supports a maximum order-notional setting.
+---
+
+## Maximum Order Notional
+
+The WEEX execution layer supports a maximum live-order notional setting.
 
 Example:
 
+```env
 WEEX_MAX_LIVE_ORDER_NOTIONAL_USDT=100
+```
 
-This provides an additional exposure limit.
+This provides an additional exposure limit for live execution.
 
-🔐 Execution Safety
+---
 
-AegisTrade separates signal generation from execution.
+# Execution Safety
 
-The safety sequence is:
-Signal
-   ↓
-Fresh Market Price
-   ↓
-Risk Calculation
-   ↓
-Risk Validation
-   ↓
-Execution Safety
-   ↓
-Paper Trade / Protected WEEX Execution
-This prevents the AI signal from bypassing the risk layer.
+AegisTrade deliberately separates signal generation from order execution.
 
-🔗 WEEX Integration
+The execution sequence is:
+
+```text
+┌──────────────────────────┐
+│       AI Signal          │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│    Fresh Market Price    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     Risk Calculation     │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     Risk Validation      │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│   Execution Safety       │
+│                          │
+│ • Notional limit         │
+│ • Duplicate protection   │
+│ • Live switch            │
+└────────────┬─────────────┘
+             │
+       ┌─────┴─────┐
+       │           │
+       ▼           ▼
+┌──────────────┐ ┌──────────────┐
+│    Paper     │ │     WEEX     │
+│    Trade     │ │     Order    │
+└──────────────┘ └──────────────┘
+```
+
+The objective is to ensure that an AI-generated signal cannot directly bypass the application's risk and safety controls.
+
+---
+
+# WEEX Integration
 
 AegisTrade integrates with the WEEX futures API for market information and protected trading operations.
 
-Market Data
+## Market Data
 
-The backend retrieves market information such as:
+The backend retrieves information such as:
 
-24-hour ticker
-Current price
-Best bid
-Best ask
-Volume
-Candlestick data
-Authentication
+* 24-hour ticker
+* Current price
+* Best bid
+* Best ask
+* Volume
+* Candlestick data
 
-Authenticated WEEX operations use backend-side credentials.
+---
 
-The backend uses the required WEEX authentication/signing mechanism for protected requests.
+## Authentication
 
-Credentials are never intended to be placed in the React frontend.
+Authenticated WEEX operations use backend-side credentials and the required request-signing mechanism.
 
-Live Trading Protection
+The credentials are intended to remain exclusively on the backend.
+
+They should never be placed in the React frontend.
+
+---
+
+## Live Trading Protection
 
 Live trading is controlled through:
 
+```env
 WEEX_LIVE_TRADING=false
+```
 
-When disabled:
+When live trading is disabled, the intended behavior is:
 
-Order validated
-       ↓
-Not sent to exchange
+```text
+┌──────────────────────────┐
+│       Order Request      │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│        Validation        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│     Safety Checks        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│  Live Trading Disabled   │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│    Order NOT Sent to     │
+│          WEEX             │
+└──────────────────────────┘
+```
 
-This is the configuration used for safe competition demonstration.
+This is the recommended configuration during development and safe competition demonstrations.
 
-🧪 Paper Trading
+---
 
-Paper trading allows the entire workflow to be tested without real financial exposure.
+# Paper Trading
+
+Paper trading allows the complete trading workflow to be tested without real financial exposure.
 
 The system can:
 
-Open simulated positions
-Close simulated positions
-Calculate simulated P&L
-Track simulated balance
-Record trade history
+* Open simulated positions
+* Close simulated positions
+* Calculate simulated P&L
+* Track simulated balance
+* Record trade history
 
-Default starting balance:
+### Default Starting Balance
 
+```text
 10,000 USDT
+```
 
-Paper trading is intended for development, testing, and demonstration.
+Paper trading is intended for:
 
-🔒 Security
+* Development
+* Testing
+* Demonstration
+* Strategy evaluation
+* Frontend/backend integration testing
 
-Security is particularly important because the application interacts with exchange APIs.
+---
 
-Credentials
+# Security
+
+Security is especially important because AegisTrade interacts with exchange APIs.
+
+## Credentials
 
 Real WEEX credentials must remain in backend environment variables.
 
 Never expose:
 
+```text
 WEEX_API_KEY
 WEEX_SECRET_KEY
 WEEX_PASSPHRASE
+```
 
 in:
 
-Frontend source code
-React components
-GitHub
-README
-Screenshots
-Demo videos
-Environment Files
+* Frontend source code
+* React components
+* GitHub repositories
+* README files
+* Screenshots
+* Demo videos
+* Public documentation
+
+---
+
+## Environment Files
 
 The project uses:
 
+```text
 .env
 .env.example
+```
 
-The real .env file should remain private and should never be committed.
+The real `.env` file should remain private and should never be committed to GitHub.
 
-.env.example contains configuration placeholders only.
+The `.env.example` file should contain placeholders only.
 
-🧰 Technology Stack
-Frontend
-React
-Vite
-Axios
-Lucide React
-Recharts
-Backend
-Python
-FastAPI
-Uvicorn
-Requests
-Exchange
-WEEX Futures API
-Deployment
-Netlify — Frontend
-Render — Backend
-GitHub — Source control
-📁 Project Structure
+Example:
+
+```env
+WEEX_API_KEY=YOUR_WEEX_API_KEY
+WEEX_SECRET_KEY=YOUR_WEEX_SECRET_KEY
+WEEX_PASSPHRASE=YOUR_WEEX_PASSPHRASE
+
+WEEX_BASE_URL=https://api-contract.weex.com
+
+WEEX_LIVE_TRADING=false
+WEEX_MAX_LIVE_ORDER_NOTIONAL_USDT=100
+```
+
+---
+
+# Technology Stack
+
+## Frontend
+
+| Technology   | Purpose             |
+| ------------ | ------------------- |
+| React        | User interface      |
+| Vite         | Frontend build tool |
+| Axios        | HTTP communication  |
+| Lucide React | Interface icons     |
+| Recharts     | Data visualization  |
+
+## Backend
+
+| Technology | Purpose                      |
+| ---------- | ---------------------------- |
+| Python     | Backend programming language |
+| FastAPI    | REST API framework           |
+| Uvicorn    | ASGI server                  |
+| Requests   | HTTP communication           |
+
+## Exchange
+
+| Service          | Purpose                             |
+| ---------------- | ----------------------------------- |
+| WEEX Futures API | Market data and protected execution |
+
+## Deployment
+
+| Platform | Component      |
+| -------- | -------------- |
+| Netlify  | Frontend       |
+| Render   | Backend        |
+| GitHub   | Source control |
+
+---
+
+# Project Structure
+
+```text
 aegistrade-ai/
 │
 ├── frontend/
@@ -663,37 +1066,61 @@ aegistrade-ai/
 ├── .env.example
 ├── .gitignore
 └── README.md
-⚙️ Local Setup
-Requirements
+```
 
-Install the following:
+---
 
-Python 3.10+
-Node.js
-npm
-Git
-1. Clone the Repository
+# Local Setup
+
+## Requirements
+
+Install:
+
+* Python 3.10+
+* Node.js
+* npm
+* Git
+
+---
+
+## 1. Clone the Repository
+
+```bash
 git clone https://github.com/Hajrajadoon/aegistrade-ai.git
 cd aegistrade-ai
-2. Backend Setup
+```
 
-Create a virtual environment:
+---
 
+## 2. Backend Setup
+
+Create a Python virtual environment:
+
+```bash
 python -m venv venv
+```
 
-Activate it:
+Activate it on Windows PowerShell:
 
+```powershell
 .\venv\Scripts\Activate.ps1
+```
 
-Install dependencies:
+Install backend dependencies:
 
+```bash
 pip install -r backend/requirements.txt
-3. Configure Environment Variables
+```
 
-Create a local .env file.
+---
+
+## 3. Configure Environment Variables
+
+Create a local `.env` file.
 
 Example:
 
+```env
 WEEX_API_KEY=YOUR_WEEX_API_KEY
 WEEX_SECRET_KEY=YOUR_WEEX_SECRET_KEY
 WEEX_PASSPHRASE=YOUR_WEEX_PASSPHRASE
@@ -702,161 +1129,316 @@ WEEX_BASE_URL=https://api-contract.weex.com
 
 WEEX_LIVE_TRADING=false
 WEEX_MAX_LIVE_ORDER_NOTIONAL_USDT=100
+```
 
-Do not use real credentials in public documentation.
+**Do not place real credentials in public documentation.**
 
-4. Start the Backend
+---
+
+# Environment Variables
+
+| Variable                            | Purpose                             |
+| ----------------------------------- | ----------------------------------- |
+| `WEEX_API_KEY`                      | WEEX API key                        |
+| `WEEX_SECRET_KEY`                   | WEEX secret key                     |
+| `WEEX_PASSPHRASE`                   | WEEX API passphrase                 |
+| `WEEX_BASE_URL`                     | WEEX futures API base URL           |
+| `WEEX_LIVE_TRADING`                 | Enables/disables live execution     |
+| `WEEX_MAX_LIVE_ORDER_NOTIONAL_USDT` | Maximum allowed live order notional |
+| `VITE_API_URL`                      | Frontend URL for the backend API    |
+
+### Recommended Development Configuration
+
+```env
+WEEX_LIVE_TRADING=false
+```
+
+Live trading should only be enabled deliberately after authentication, validation, risk controls, and execution behavior have been tested.
+
+---
+
+# Running the Application
+
+## Start the Backend
+
+From the project root:
+
+```bash
 python -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000
+```
 
 Backend:
 
+```text
 http://127.0.0.1:8000
+```
 
-Swagger API documentation:
+FastAPI Swagger documentation:
 
+```text
 http://127.0.0.1:8000/docs
-5. Start the Frontend
+```
+
+---
+
+## Start the Frontend
 
 Open a second terminal:
 
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
 Then open:
 
+```text
 http://localhost:5173
-🌐 Deployment
+```
 
-AegisTrade AI uses a separated production deployment:
-GitHub
-   │
-   ├──────────────► Netlify
-   │                 │
-   │                 ▼
-   │          React Frontend
-   │
-   └──────────────► Render
-                     │
-                     ▼
-               FastAPI Backend
-                     │
-                     ▼
-                  WEEX API
-                  Frontend
+---
 
-Production frontend:
+# Deployment
 
+AegisTrade AI uses a separated production deployment architecture.
+
+```text
+                         ┌──────────────────────────┐
+                         │     GitHub Repository    │
+                         │                          │
+                         │   Source Control         │
+                         └────────────┬─────────────┘
+                                      │
+                         ┌────────────┴────────────┐
+                         │                         │
+                         ▼                         ▼
+                ┌──────────────────┐     ┌──────────────────┐
+                │      Netlify     │     │      Render      │
+                │                  │     │                  │
+                │ React Frontend   │     │ FastAPI Backend  │
+                └────────┬─────────┘     └────────┬─────────┘
+                         │                        │
+                         │      HTTP API          │
+                         └───────────┬────────────┘
+                                     │
+                                     ▼
+                         ┌──────────────────────────┐
+                         │      WEEX Futures API    │
+                         │                          │
+                         │ • Market Data            │
+                         │ • Protected Execution    │
+                         └──────────────────────────┘
+```
+
+## Production Frontend
+
+```text
 https://aegistrade-ai.netlify.app
+```
 
 The frontend uses the backend URL configured through:
 
+```env
 VITE_API_URL
-Backend
+```
 
-Production backend:
+---
 
+## Production Backend
+
+```text
 https://aegistrade-ai.onrender.com
+```
 
 Backend health endpoint:
 
+```text
 https://aegistrade-ai.onrender.com/
-🎬 Demo Flow
+```
 
-The recommended competition demonstration is:
-1. Open AegisTrade AI
-        ↓
-2. Show live WEEX market data
-        ↓
-3. Select a supported futures symbol
-        ↓
-4. Show price and market information
-        ↓
-5. Show technical indicators
-        ↓
-6. Show AI signal
-        ↓
-7. Explain LONG / SHORT / HOLD
-        ↓
-8. Explain confidence
-        ↓
-9. Show risk controls
-        ↓
-10. Open a paper trade
-        ↓
-11. Show position / balance / P&L
-        ↓
-12. Show WEEX execution protection
-        ↓
-13. Explain the architecture
-📈 Supported Markets
+---
+
+# Demo Flow
+
+The recommended competition demonstration flow is:
+
+```text
+┌──────────────────────────┐
+│   1. Open AegisTrade AI  │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 2. Show Live WEEX Data   │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 3. Select Futures Symbol │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 4. Show Price & Market   │
+│       Information        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 5. Show Technical        │
+│       Indicators         │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 6. Show AI Signal        │
+│    LONG / SHORT / HOLD   │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 7. Explain Confidence    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 8. Show Risk Controls    │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 9. Open Paper Trade      │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 10. Show Position,       │
+│     Balance & P&L        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 11. Show WEEX Execution  │
+│        Protection        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│ 12. Explain Architecture │
+└──────────────────────────┘
+```
+
+### Recommended Presentation Sequence
+
+1. Open the dashboard.
+2. Show that market data is connected.
+3. Select a supported futures symbol.
+4. Demonstrate current price and market information.
+5. Show EMA, RSI, MACD, momentum, and volume information.
+6. Explain the generated signal.
+7. Explain why the system can return HOLD.
+8. Show confidence information.
+9. Demonstrate risk controls.
+10. Open a paper trade.
+11. Show the simulated position and P&L.
+12. Explain that live WEEX execution is protected by backend controls.
+13. Finish by explaining the architecture.
+
+---
+
+# Supported Markets
 
 The current application supports the following futures symbols:
 
-BTCUSDT
-ETHUSDT
-SOLUSDT
-DOGEUSDT
-XRPUSDT
-ADAUSDT
-BNBUSDT
-LTCUSDT
+| Symbol   |
+| -------- |
+| BTCUSDT  |
+| ETHUSDT  |
+| SOLUSDT  |
+| DOGEUSDT |
+| XRPUSDT  |
+| ADAUSDT  |
+| BNBUSDT  |
+| LTCUSDT  |
 
-Supported chart intervals include:
+### Supported Chart Intervals
 
-5m
-15m
-1h
-4h
-🧪 Testing Philosophy
+* 5m
+* 15m
+* 1h
+* 4h
 
-AegisTrade was developed with safety-oriented testing in mind.
+---
 
-Testing includes:
+# Testing Philosophy
 
-Backend API testing
-Market ticker validation
-Candlestick validation
-Paper trade testing
-Risk validation
-Protected WEEX order testing
-Frontend-backend connectivity
-Local development testing
-Deployed production testing
+AegisTrade was developed with a safety-oriented testing approach.
 
-The production demonstration is kept separate from real-money trading by maintaining live trading protection.
+Testing areas include:
 
-🚧 Future Improvements
+* Backend API testing
+* Market ticker validation
+* Candlestick validation
+* Paper trading testing
+* Risk validation
+* WEEX authentication testing
+* Protected WEEX order testing
+* Frontend-backend connectivity
+* Local development testing
+* Production deployment testing
+
+The recommended demonstration configuration keeps live trading disabled while validating the complete trading workflow through paper trading and protected execution logic.
+
+---
+
+# Future Improvements
 
 Potential future improvements include:
 
-More advanced machine-learning models
-Persistent trading database
-Portfolio-level risk management
-Historical backtesting
-Strategy optimization
-More sophisticated signal models
-Expanded exchange integrations
-Advanced execution monitoring
-Production-grade logging and observability
-Improved market-data retry and recovery handling
-Persistent user accounts and trading history
+## Intelligence
 
-These improvements can be developed after the competition prototype.
+* More advanced machine-learning models
+* More sophisticated signal models
+* Strategy optimization
+* Market-regime detection
+* Improved signal explainability
 
-🏆 Competition
+## Trading
+
+* Historical backtesting
+* Portfolio-level risk management
+* Advanced execution monitoring
+* Expanded exchange integrations
+
+## Infrastructure
+
+* Persistent trading database
+* Persistent user accounts
+* Persistent trading history
+* Production-grade logging
+* Observability and monitoring
+* Improved market-data retry and recovery handling
+
+These improvements can be developed as the project evolves beyond the competition prototype.
+
+---
+
+# Competition
 
 AegisTrade AI was developed for:
 
-WEEX AI Wars II: Human vs AI
+**WEEX AI Wars II: Human vs AI**
 
 The project focuses on combining AI-driven market intelligence with controlled futures trading workflows.
 
-Project Tagline
+### Project Tagline
 
-Trade smarter. Trade with Aegis.
+> **Trade smarter. Trade with Aegis.**
 
-⚠️ Disclaimer
+---
+
+# Disclaimer
 
 AegisTrade AI is a software project and competition prototype.
 
@@ -864,8 +1446,16 @@ It does not guarantee trading profits.
 
 AI-generated signals and confidence scores should not be interpreted as guaranteed probabilities of successful trades.
 
-Futures trading involves significant financial risk.
+Futures trading involves significant financial risk, particularly when leverage is used.
 
 Users should understand the risks of leveraged trading before using any live trading functionality.
 
+**Always test with paper trading first and never expose exchange credentials publicly.**
 
+---
+
+# AegisTrade AI
+
+**AI-Powered Trading Intelligence for WEEX Futures**
+
+> **Trade smarter. Trade with Aegis.**
