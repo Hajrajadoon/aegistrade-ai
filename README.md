@@ -1,3 +1,14 @@
+<div align="center">
+
+<img src="./aegistrade-ai-logo.png" alt="AegisTrade AI Logo" width="180">
+
+# AegisTrade AI
+
+### AI-Powered Trading Intelligence
+
+**Trade smarter. Trade with Aegis.**
+
+</div>
 # AegisTrade AI
 
 ## AI-Powered Trading Intelligence for WEEX Futures
