@@ -396,8 +396,57 @@ The validated action can either be:
 # System Architecture
 
 AegisTrade AI uses a separated frontend-backend architecture.
+     flowchart TB
+    %% AegisTrade AI — System Architecture
 
-```text
+    subgraph PRESENTATION["Presentation Layer"]
+        FE["AegisTrade AI<br/>React Frontend<br/><small>Hosted on Netlify</small>"]
+    end
+
+    subgraph APPLICATION["Application Layer"]
+        API["FastAPI Backend<br/><small>Hosted on Render</small>"]
+    end
+
+    FE -->|"HTTPS / REST API"| API
+
+    subgraph CORE["Core Trading Intelligence"]
+        direction LR
+
+        MARKET["WEEX Market Data<br/><br/>Ticker · Candles<br/>Bid / Ask · Volume"]
+        SIGNAL["AI Signal Engine<br/><br/>EMA · RSI · MACD<br/>Momentum · Volume"]
+        RISK["Risk Management Layer<br/><br/>Position sizing · SL / TP<br/>Limits · Validation"]
+
+        MARKET -->|"Live market feed"| SIGNAL
+        SIGNAL -->|"Trade signal"| RISK
+    end
+
+    API -->|"Market requests"| MARKET
+    API -->|"Strategy configuration"| SIGNAL
+    API -->|"Risk parameters"| RISK
+
+    MARKET -->|"Current price context"| SAFETY
+    SIGNAL -->|"Validated signal"| SAFETY
+    RISK -->|"Approved trade plan"| SAFETY
+
+    subgraph CONTROL["Execution Control"]
+        SAFETY["Execution Safety Layer<br/><br/>Fresh price check · Notional limit<br/>Duplicate protection · Live trading switch"]
+    end
+
+    SAFETY -->|"Simulation mode"| PAPER["Paper Trading Engine"]
+    SAFETY -->|"Live mode — explicit approval"| LIVE["WEEX Futures Execution"]
+
+    subgraph EXECUTION["Execution Destinations"]
+        direction LR
+        PAPER
+        LIVE
+    end
+
+    PAPER -->|"Results & positions"| API
+    LIVE -->|"Order status & fills"| API
+    API -->|"Signals, risk & execution status"| FE
+
+
+
                          ┌──────────────────────────┐
                          │     AegisTrade AI        │
                          │      React Frontend      │
