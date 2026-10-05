@@ -395,8 +395,7 @@ The validated action can either be:
 
 # System Architecture
 
-## System Architecture
-## System Architecture
+
 
 ```mermaid
 flowchart TB
