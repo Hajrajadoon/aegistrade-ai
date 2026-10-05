@@ -422,63 +422,6 @@ flowchart TB
     G -->|Results & positions| B
     H -->|Order status & fills| B
     B -->|Status| A
-```
-
-### 2. VERY IMPORTANT
-
-The first line must be:
-
-```text
-```mermaid
-```
-
-and the **last line must be only**:
-
-```text
-```
-```
-
-There must be **three backticks before `mermaid` and three backticks after the diagram**.
-
-Do **not** put four backticks into GitHub.
-
----
-
-### 3. Commit it
-
-Use:
-
-**Commit message:**
-
-```text
-Fix Mermaid architecture diagram rendering
-```
-
-Then **Commit changes**.
-
----
-
-### 4. Check the README
-
-When you open the rendered README, you should **NOT** see:
-
-```text
-flowchart TB
-A["AegisTrade AI..."]
-B["FastAPI Backend..."]
-```
-
-Instead, GitHub should display the **boxes and arrows visually**.
-
----
-
-### If it STILL shows code
-
-Then don't keep changing things randomly.
-
-Send me a **screenshot of the System Architecture section as it appears on GitHub**, and I'll tell you exactly what is wrong.
-
-Also, if your README editor is showing the backticks differently, send me a screenshot of the **edit mode** and I'll guide you click-by-click.
 
                          ┌──────────────────────────┐
                          │     AegisTrade AI        │
