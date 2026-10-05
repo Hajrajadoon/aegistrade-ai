@@ -2,7 +2,7 @@
 
 <img src="./aegistrade-ai-logo.png" alt="AegisTrade AI Logo" width="180">
 
-# AegisTrade AI
+
 
 ### AI-Powered Trading Intelligence
 
