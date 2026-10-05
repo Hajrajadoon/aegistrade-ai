@@ -1282,72 +1282,45 @@ https://aegistrade-ai.onrender.com/
 
 # Demo Flow
 
-The recommended competition demonstration flow is:
+```mermaid
+flowchart TB
+    %% AegisTrade AI — End-to-End Demo Workflow
 
-```text
-┌──────────────────────────┐
-│   1. Open AegisTrade AI  │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 2. Show Live WEEX Data   │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 3. Select Futures Symbol │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 4. Show Price & Market   │
-│       Information        │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 5. Show Technical        │
-│       Indicators         │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 6. Show AI Signal        │
-│    LONG / SHORT / HOLD   │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 7. Explain Confidence    │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 8. Show Risk Controls    │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 9. Open Paper Trade      │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 10. Show Position,       │
-│     Balance & P&L        │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 11. Show WEEX Execution  │
-│        Protection        │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│ 12. Explain Architecture │
-└──────────────────────────┘
+    START(["AegisTrade AI<br/>End-to-End Demo Workflow"])
+
+    subgraph PHASE1["Phase 1 · Launch & Live Data"]
+        direction LR
+        S1["1. Open AegisTrade AI"] --> S2["2. Show Live WEEX Data"]
+    end
+
+    subgraph PHASE2["Phase 2 · Market Context"]
+        direction LR
+        S3["3. Select Futures Symbol"] --> S4["4. Show Price & Market Information"] --> S5["5. Show Technical Indicators"]
+    end
+
+    subgraph PHASE3["Phase 3 · AI Intelligence"]
+        direction LR
+        S6["6. Show AI Signal<br/>LONG / SHORT / HOLD"] --> S7["7. Explain Confidence"]
+    end
+
+    subgraph PHASE4["Phase 4 · Risk & Paper Trading"]
+        direction LR
+        S8["8. Show Risk Controls"] --> S9["9. Open Paper Trade"] --> S10["10. Show Position, Balance & P&L"]
+    end
+
+    subgraph PHASE5["Phase 5 · Safety & Architecture"]
+        direction LR
+        S11["11. Show WEEX Execution Protection"] --> S12["12. Explain System Architecture"]
+    end
+
+    START --> PHASE1
+    PHASE1 --> PHASE2
+    PHASE2 --> PHASE3
+    PHASE3 -->|"Signal passes risk validation"| PHASE4
+    PHASE4 --> PHASE5
+
+    NOTE["Core principle:<br/>An AI signal never becomes<br/>an exchange order directly."]
+    PHASE3 -.-> NOTE
 ```
 
 ### Recommended Presentation Sequence
