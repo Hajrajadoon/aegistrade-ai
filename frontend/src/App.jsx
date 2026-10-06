@@ -429,6 +429,25 @@ function App() {
   const selectedName = SUPPORTED_ASSETS.find((asset) => asset.symbol === selectedSymbol)?.name || selectedSymbol;
   const realOrdersAllowed = executionStatus?.real_orders_allowed === true;
 
+  // Calculate performance directly from completed trade history so the
+  // statistics always stay synchronized with the trades shown below.
+  const performanceStats = useMemo(() => {
+    const history = Array.isArray(paperStatus?.trade_history) ? paperStatus.trade_history : [];
+    const completedTrades = history.length;
+    const winningTrades = history.filter((trade) => Number(trade?.pnl || 0) > 0).length;
+    const losingTrades = history.filter((trade) => Number(trade?.pnl || 0) < 0).length;
+    const realizedPnl = history.reduce((total, trade) => total + Number(trade?.pnl || 0), 0);
+    const winRate = completedTrades > 0 ? (winningTrades / completedTrades) * 100 : 0;
+
+    return {
+      totalTrades: completedTrades,
+      winningTrades,
+      losingTrades,
+      winRate,
+      realizedPnl,
+    };
+  }, [paperStatus?.trade_history]);
+
   return (
     <div className="app">
       <header className="topbar">
@@ -521,7 +540,7 @@ function App() {
         {lastRisk && <section className="panel" style={{ marginTop: 20 }}><div className="panel-header"><div><p className="eyebrow">CURRENT ORDER PLAN</p><h3>Execution Parameters</h3></div><span className="safe-badge">{analysis.signal}</span></div><div className="risk-list"><div><span>Side</span><strong>{analysis.signal}</strong></div><div><span>Safe Quantity</span><strong>{Math.min(Number(lastRisk.position_size || 0), capQuantity).toFixed(6)}</strong></div><div><span>Entry</span><strong>${money(lastRisk.entry_price)}</strong></div><div><span>Stop Loss</span><strong>${money(lastRisk.stop_loss_price)}</strong></div><div><span>Take Profit</span><strong>${money(lastRisk.take_profit_price)}</strong></div><div><span>Maximum Notional</span><strong>${money(liveCap)}</strong></div></div></section>}
 
         <section className="bottom-grid" style={{ marginTop: 20 }}>
-          <div className="panel"><div className="panel-header"><div><p className="eyebrow">PERFORMANCE</p><h3>Trading Statistics</h3></div><span className="safe-badge">SIMULATION</span></div><div className="risk-list"><div><span>Total Trades</span><strong>{paperStatus?.total_trades ?? 0}</strong></div><div><span>Winning Trades</span><strong>{paperStatus?.winning_trades ?? 0}</strong></div><div><span>Losing Trades</span><strong>{paperStatus?.losing_trades ?? 0}</strong></div><div><span>Win Rate</span><strong>{Number(paperStatus?.win_rate || 0).toFixed(1)}%</strong></div><div><span>Realized P&L</span><strong>${money(paperStatus?.realized_pnl || 0)}</strong></div><div><span>Current Balance</span><strong>${money(paperStatus?.balance)}</strong></div></div></div>
+          <div className="panel"><div className="panel-header"><div><p className="eyebrow">PERFORMANCE</p><h3>Trading Statistics</h3></div><span className="safe-badge">SIMULATION</span></div><div className="risk-list"><div><span>Total Trades</span><strong>{performanceStats.totalTrades}</strong></div><div><span>Winning Trades</span><strong>{performanceStats.winningTrades}</strong></div><div><span>Losing Trades</span><strong>{performanceStats.losingTrades}</strong></div><div><span>Win Rate</span><strong>{performanceStats.winRate.toFixed(1)}%</strong></div><div><span>Realized P&L</span><strong>{performanceStats.realizedPnl >= 0 ? "+" : "-"}${Math.abs(performanceStats.realizedPnl).toFixed(2)}</strong></div><div><span>Current Balance</span><strong>${money(paperStatus?.balance)}</strong></div></div></div>
           <div className="panel"><div className="panel-header"><div><p className="eyebrow">TRADE HISTORY</p><h3>Completed Trades</h3></div><span className="safe-badge">{paperStatus?.trade_history?.length || 0} TRADES</span></div>{paperStatus?.trade_history?.length ? <div style={{ overflowX: "auto" }}><table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}><thead><tr><th style={{ textAlign: "left", padding: 8 }}>Asset</th><th style={{ textAlign: "left", padding: 8 }}>Side</th><th style={{ textAlign: "right", padding: 8 }}>Entry</th><th style={{ textAlign: "right", padding: 8 }}>Exit</th><th style={{ textAlign: "right", padding: 8 }}>P&L</th></tr></thead><tbody>{paperStatus.trade_history.slice(0, 10).map((trade) => { const pnl = Number(trade.pnl || 0); return <tr key={trade.id}><td style={{ padding: 8 }}>{trade.symbol}</td><td style={{ padding: 8 }}>{trade.side}</td><td style={{ textAlign: "right", padding: 8 }}>${money(trade.entry_price)}</td><td style={{ textAlign: "right", padding: 8 }}>${money(trade.exit_price)}</td><td style={{ textAlign: "right", padding: 8, fontWeight: 700 }}>{pnl >= 0 ? "+" : "-"}${Math.abs(pnl).toFixed(2)}</td></tr>; })}</tbody></table></div> : <div style={{ padding: 24, textAlign: "center", opacity: 0.65 }}>No completed paper trades yet.</div>}</div>
         </section>
       </main>
